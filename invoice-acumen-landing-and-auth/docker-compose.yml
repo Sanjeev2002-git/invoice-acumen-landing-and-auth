@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: invoice_acumen
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpass}
+      MYSQL_USER: ${DB_USER:-invoice_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-invoice_pass}
+    ports: ["3306:3306"]
+    volumes: [mysql_data:/var/lib/mysql]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    depends_on:
+      mysql: { condition: service_healthy }
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/invoice_acumen
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-invoice_user}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-invoice_pass}
+      JWT_SECRET: ${JWT_SECRET}
+    ports: ["8080:8080"]
+
+  frontend:
+    build: ./frontend
+    depends_on: [backend]
+    ports: ["5173:5173"]
+
+volumes:
+  mysql_data:

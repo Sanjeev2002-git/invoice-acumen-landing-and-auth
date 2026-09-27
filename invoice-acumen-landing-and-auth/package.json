@@ -1,0 +1,19 @@
+{
+  "name": "invoice-acumen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Root orchestration for Invoice Acumen backend (Spring Boot) and frontend (Vite React)",
+  "scripts": {
+    "setup": "npm install && npm --prefix frontend install",
+    "predev": "node scripts/preflight.mjs",
+    "dev": "concurrently --kill-others-on-fail -n BACKEND,FRONTEND -c blue,green \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && mvn spring-boot:run",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:frontend": "npm --prefix frontend install",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

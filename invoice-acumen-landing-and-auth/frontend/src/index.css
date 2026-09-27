@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #F6F3EC;
+}
+
+@layer utilities {
+  /* Typography */
+  .font-display {
+    font-family: 'Fraunces', ui-serif, Georgia, serif;
+  }
+
+  /*
+    UI tokens (safe fallback)
+    The app uses classes like bg-primary/bg-secondary/text-primary/text-secondary,
+    but Tailwind config may not define them.
+    These utilities make styling consistent without touching auth/API.
+  */
+  :root {
+    --primary: #146356; /* app primary */
+    --secondary: #0b3b2f; /* deep secondary */
+    --paper: #ffffff;
+    --ink: #0f172a; /* slate-900 */
+    --muted: #64748b; /* slate-500 */
+    --slateink-450: #64748b;
+    --ledger-500: #146356;
+    --ledger-600: #0f4a3f;
+    --ledger-50: rgba(20, 99, 86, 0.08);
+    --stamp-500: #16a34a;
+  }
+
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  .text-primary {
+    color: var(--primary);
+  }
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+  .text-secondary {
+    color: var(--secondary);
+  }
+  .bg-paper {
+    background-color: #F6F3EC;
+  }
+
+  .text-ink {
+    color: var(--ink);
+  }
+  .text-slateink-450 {
+    color: var(--slateink-450);
+  }
+
+  .bg-ledger-500 {
+    background-color: var(--ledger-500);
+  }
+  .bg-ledger-600 {
+    background-color: var(--ledger-600);
+  }
+  .bg-ledger-50 {
+    background-color: var(--ledger-50);
+  }
+  .text-ledger-600 {
+    color: var(--ledger-600);
+  }
+  .text-ledger-500 {
+    color: var(--ledger-500);
+  }
+
+  /* gradient/opacity tokens used in JSX */
+  .bg-ledger-500\/10 {
+    background-color: rgba(20, 99, 86, 0.1);
+  }
+}
+
+
+/* Subtle fade/rise-in used across the landing page + auth screens */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-rise-in {
+  animation: rise-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes stamp-in {
+  0% { opacity: 0; transform: scale(2.2) rotate(-14deg); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1) rotate(-8deg); }
+}
+.animate-stamp-in {
+  animation: stamp-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes tally-tick {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-tally {
+  animation: tally-tick 0.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise-in, .animate-stamp-in, .animate-tally {
+    animation: none !important;
+  }
+}
+
+/* visible keyboard focus ring, consistent across the new UI */
+.focus-ring:focus-visible {
+  outline: 2px solid #146356;
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Evolvion-style dark theme — purely additive.
+   Nothing above this line is modified, so any page still using the
+   paper/ledger classes keeps working exactly as before.
+   ========================================================================== */
+
+.evo-page {
+  background-color: #08080D;
+  color: #F5F4F8;
+  position: relative;
+}
+
+.evo-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 40% at 50% 0%, rgba(139, 92, 246, 0.28) 0%, rgba(8, 8, 13, 0) 70%),
+    radial-gradient(35% 30% at 85% 10%, rgba(59, 130, 246, 0.18) 0%, rgba(8, 8, 13, 0) 70%);
+  z-index: 0;
+}
+
+.evo-gradient-text {
+  background: linear-gradient(90deg, #8B5CF6 0%, #6366F1 45%, #3B82F6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.evo-navbar {
+  background: rgba(8, 8, 13, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.evo-btn-primary {
+  background: linear-gradient(90deg, #8B5CF6 0%, #6366F1 50%, #3B82F6 100%);
+  color: #fff;
+  border-radius: 9999px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+}
+.evo-btn-primary:hover {
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.45);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.evo-btn-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  color: #F5F4F8;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.evo-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.evo-card {
+  background: #111017;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.evo-card:hover {
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.12);
+  transform: translateY(-2px);
+}
+
+.evo-input {
+  background: #17151F;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #F5F4F8;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.evo-input::placeholder {
+  color: #6E6B7D;
+}
+.evo-input:focus {
+  outline: none;
+  border-color: #8B5CF6;
+  background: #1B1926;
+}
+
+.evo-focus-ring:focus-visible {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 2px;
+}
+
+/* Cards that slide in from the right and settle to the left */
+@keyframes slide-right-to-left {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.evo-slide-rtl {
+  opacity: 0;
+  transform: translateX(60px);
+}
+.evo-slide-rtl.evo-in-view {
+  animation: slide-right-to-left 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .evo-slide-rtl,
+  .evo-slide-rtl.evo-in-view {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}
+
+/* Cards that slide in from the right and settle to the left */
+@keyframes slide-right-to-left {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.evo-slide-rtl {
+  opacity: 0;
+  transform: translateX(60px);
+}
+.evo-slide-rtl.evo-in-view {
+  animation: slide-right-to-left 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .evo-slide-rtl,
+  .evo-slide-rtl.evo-in-view {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}
