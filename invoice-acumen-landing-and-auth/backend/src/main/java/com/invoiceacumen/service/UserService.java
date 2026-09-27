@@ -44,7 +44,11 @@ public class UserService {
         this.uploadDirectory = Path.of(uploadDir).toAbsolutePath().normalize();
     }
 
-    public AuthResponse updateMyProfile(String email, String token, UpdateProfileRequest request) {
+    public Long getIdByEmail(String email) {
+        return findUserByEmail(email).getId();
+    }
+
+    public AuthResponse updateMyProfile(String email, UpdateProfileRequest request) {
         User user = findUserByEmail(email);
 
         user.setName(request.getName().trim());
@@ -53,10 +57,10 @@ public class UserService {
                 : request.getPhone());
 
         User saved = userRepository.save(user);
-        return toAuthResponse(saved, token);
+        return toAuthResponse(saved);
     }
 
-    public AuthResponse updateMyAvatar(String email, String token, MultipartFile file) {
+    public AuthResponse updateMyAvatar(String email, MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new ApiException("Please select an image to upload");
         }
@@ -89,7 +93,7 @@ public class UserService {
         }
 
         user.setAvatarUrl("/uploads/" + filename);
-        return toAuthResponse(userRepository.save(user), token);
+        return toAuthResponse(userRepository.save(user));
     }
 
     public void changeMyPassword(String email, ChangePasswordRequest request) {
@@ -137,9 +141,9 @@ public class UserService {
         }
     }
 
-    private AuthResponse toAuthResponse(User user, String token) {
+    private AuthResponse toAuthResponse(User user) {
         return new AuthResponse(
-                token,
+                null,
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
@@ -151,4 +155,3 @@ public class UserService {
         );
     }
 }
-
