@@ -1,0 +1,2 @@
+-- Baseline schema placeholder.
+-- Replace this with your actual current schema (export it from MySQL first, see note below).

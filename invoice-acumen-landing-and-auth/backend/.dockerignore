@@ -1,0 +1,11 @@
+.git
+.env
+**/.env*
+node_modules
+target
+build
+dist
+*.log
+*.sql
+.idea
+.vscode

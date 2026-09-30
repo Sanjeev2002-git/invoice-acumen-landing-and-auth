@@ -7,7 +7,7 @@ spring.datasource.password=${DB_PASSWORD:}
 spring.datasource.driver-class-name=${DB_DRIVER:org.h2.Driver}
 
 # JPA / Hibernate
-spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=false
 spring.jpa.properties.hibernate.dialect=${HIBERNATE_DIALECT:org.hibernate.dialect.H2Dialect}
 spring.jpa.properties.hibernate.format_sql=true
@@ -22,7 +22,7 @@ spring.h2.console.settings.web-allow-others=false
 server.port=8080
 
 # JWT Config - JWT_SECRET must be set outside local development.
-jwt.secret=${JWT_SECRET}
+jwt.secret=${JWT_SECRET:local-development-secret-change-before-deployment}
 jwt.expiration.ms=${JWT_EXPIRATION_MS:86400000}
 jwt.refresh-expiration-ms=${JWT_REFRESH_EXPIRATION_MS:604800000}
 
@@ -54,4 +54,3 @@ spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 app.admin-email=${ADMIN_EMAIL:admin@example.com}
 app.cookie-secure=${COOKIE_SECURE:false}
-app.cors.origins=http://localhost:5173
