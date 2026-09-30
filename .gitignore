@@ -8,3 +8,8 @@ build/
 errors.txt
 
 .env
+
+target/
+node_modules/
+dist/
+*.log
