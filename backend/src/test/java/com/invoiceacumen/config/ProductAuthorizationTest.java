@@ -1,5 +1,7 @@
 package com.invoiceacumen.config;
 
+import com.invoiceacumen.security.CookieUtil;
+
 import com.invoiceacumen.controller.ProductController;
 import com.invoiceacumen.entity.Product;
 import com.invoiceacumen.security.JwtAuthFilter;
@@ -26,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ProductController.class)
 @Import({SecurityConfig.class, JwtAuthFilter.class})
 class ProductAuthorizationTest {
+
+    @MockBean private CookieUtil cookieUtil;
 
     @Autowired
     private MockMvc mockMvc;
