@@ -6,3 +6,5 @@ build/
 
 *.bak
 errors.txt
+
+.env
