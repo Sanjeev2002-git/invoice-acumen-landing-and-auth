@@ -1,6 +1,6 @@
 package com.invoiceacumen.dto;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
 public record ProductRequest(
