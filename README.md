@@ -1,3 +1,5 @@
+[![CI](https://github.com/Sanjeev2002-git/invoice-acumen-landing-and-auth/actions/workflows/ci.yml/badge.svg)](https://github.com/Sanjeev2002-git/invoice-acumen-landing-and-auth/actions)
+
 # Invoice Acumen
 
 Full-stack invoice/billing & inventory management system.
